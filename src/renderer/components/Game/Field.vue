@@ -33,7 +33,9 @@ export default {
       });
     },
     update() {
+      var old = this.selectedPart;
       this.selectedPart = null;
+      this.selectedPart = old;
     }
   },
   data() {

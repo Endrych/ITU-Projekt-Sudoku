@@ -25,7 +25,7 @@
 import Field from "./Field.vue";
 
 export default {
-  beforeMount: function() {
+  mounted: function() {
     this.generateField();
   },
   components: {
@@ -35,19 +35,28 @@ export default {
     goBack() {
       this.$router.push("/");
     },
+    deepCopy(obj) {
+      if (typeof obj == "object") {
+        if (obj) {
+          var l = obj.length;
+          var r = new Array(l);
+          for (var i = 0; i < l; i++) {
+            r[i] = this.deepCopy(obj[i]);
+          }
+          return r;
+        }
+      }
+      return obj;
+    },
     select(select) {
       this.selectedPart = select.part;
       this.selectedRow = select.row;
       this.selectedCol = select.col;
     },
     selectValue(value) {
-      console.log(this.currPlayField === this.playField);
-      console.log('Before',this.playField, this.currPlayField);
-
       this.currPlayField[this.selectedPart][this.selectedRow][
         this.selectedCol
       ] = value;
-      console.log('After',this.playField, this.currPlayField);
       this.$refs.playfield.update();
     },
     generateField() {
@@ -62,7 +71,7 @@ export default {
         [[null, null, null], [null, null, 4], [1, 5, null]],
         [[null, null, 3], [9, null, 8], [null, 2, 4]]
       ];
-      this.currPlayField = Object.assign([], this.playField);
+      this.currPlayField = this.deepCopy(this.playField);
     }
   },
   data() {
