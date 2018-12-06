@@ -3,12 +3,15 @@
 </template>
 <script>
 import Game from "../Game/Game";
+const fs = require("fs");
 export default {
   components: {
     "app-game": Game
   },
   methods: {
     generateField(difficult) {
+      // Get from file 
+
       return [
         [[4, 5, null], [2, null, 8], [3, null, null]],
         [[null, 8, 2], [3, null, null], [null, null, null]],

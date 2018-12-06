@@ -51,7 +51,7 @@ export default {
           }
         },
         {
-          name: "Nastavení",
+          name: "Statistiky",
           action: () => {
             console.log("Click");
           }

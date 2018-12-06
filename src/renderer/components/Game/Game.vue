@@ -54,7 +54,7 @@ export default {
         this.selectValue(null);
       }
       var val = parseInt(event.key);
-      if (!isNaN(val)) {
+      if (!isNaN(val) && val !== 0) {
         this.selectValue(val);
       }
     },
