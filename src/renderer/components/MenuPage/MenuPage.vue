@@ -5,7 +5,8 @@
       <span>NG</span>
     </h1>
     <app-buttons :buttons="buttons"/>
-    <app-modal v-if="isModalShow" :hide="hideModal" title/>
+    <app-modal v-if="isModalShow" v-on:hide="hideModal" title/>
+    <app-load-game-modal v-if="isLoadModalShow" :items="items" v-on:hide="hideModal"/>
   </div>
 </template>
 
@@ -13,18 +14,35 @@
 import MenuButtons from "./MenuButtons";
 import { remote } from "electron";
 import AppModal from "../Modal/StartGameModal";
+import AppLoadGameModal from "../Modal/LoadGameModal";
+import { readFile, writeFile } from "fs";
 
 export default {
+  mounted() {
+    readFile("./saved-games.json", "utf8", (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      this.items = JSON.parse(data);
+    });
+  },
   components: {
     "app-buttons": MenuButtons,
-    AppModal
+    AppModal,
+    AppLoadGameModal
+  },
+  methods: {
+    hideModal() {
+      this.isModalShow = false;
+      this.isLoadModalShow = false;
+    }
   },
   data() {
     return {
       isModalShow: false,
-      hideModal: () => {
-        this.isModalShow = false;
-      },
+      isLoadModalShow: false,
+      items: [],
       buttons: [
         {
           name: "Nová hra",
@@ -35,7 +53,7 @@ export default {
         {
           name: "Načíst hru",
           action: () => {
-            console.log("Click");
+            this.isLoadModalShow = true;
           }
         },
         {

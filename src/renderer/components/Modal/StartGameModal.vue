@@ -13,7 +13,7 @@
       </div>
       <app-modal-buttons
         FirstTitle="Start"
-        SecondTitle="Zpět"
+        SecondTitle="Menu"
         v-on:first-click="startGame"
         v-on:second-click="hide"
       />
@@ -24,8 +24,12 @@
 import AppModalButtons from "./ModalButtons";
 export default {
   components: { AppModalButtons },
-  props: ["hide", "newGame", "title"],
+  props: ["newGame", "title"],
   methods: {
+    hide() {
+      console.log("Call $emit");
+      this.$emit("hide");
+    },
     selectClick(index) {
       this.selected = index;
     },

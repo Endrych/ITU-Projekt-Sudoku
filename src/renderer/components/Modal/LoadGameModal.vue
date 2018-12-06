@@ -11,22 +11,9 @@
       <div v-else>
         <app-saved-games v-on:select="selectClick" :items="items"/>
       </div>
-      <div class="new-name-container">
-        <input
-          class="new-name-input"
-          v-model="newName"
-          type="text"
-          name="new-name"
-          placeholder="Název hry"
-        >
+      <div class="modal-buttons">
+        <div class="modal-button modal-button--back" v-on:click="hide">Zpět</div>
       </div>
-      <p class="error-message">{{error}}</p>
-      <app-modal-buttons
-        FirstTitle="Start"
-        SecondTitle="Zpět"
-        v-on:first-click="saveGame"
-        v-on:second-click="hide"
-      />
     </div>
   </div>
 </template>
@@ -39,37 +26,15 @@ export default {
 
   methods: {
     selectClick(index) {
-      this.$emit("saveGame", index);
+      console.log(index);
     },
     hide() {
       this.$emit("hide");
-    },
-    saveGame() {
-      var value = null;
-      if (this.newName !== "") {
-        if (!this.items[this.newName]) {
-          value = this.newName;
-        } else {
-          this.error =
-            "Již existuje hra se shodným jménem vyberte si jiné jméno nebo klikněte na položku ze seznamu";
-        }
-      } else {
-        this.error =
-          "Musí být vyplněný název nebo si zvolte již uloženou hru ze seznamu";
-      }
-
-      if (value) {
-        this.$emit("saveGame", value);
-      }
     }
   },
   data() {
     return {
-      selected: null,
-      title:
-        "Zvolte prosím nový název nebo si klikem vyberte z předchozích uložení",
-      newName: "",
-      error: ""
+      title: "Zvolte si jednu z uložených her"
     };
   }
 };
@@ -114,8 +79,23 @@ export default {
 h3 {
   text-align: center;
 }
-.error-message {
-  color: red;
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-button {
+  border: 1px solid lightgray;
+  padding: 1rem 2.5rem;
+  user-select: none;
+  cursor: pointer;
+  color: white;
+  display: inline-block;
+
+  &--back {
+    background: red;
+    border-radius: 5px;
+  }
 }
 </style>
 

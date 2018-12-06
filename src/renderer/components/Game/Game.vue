@@ -24,10 +24,10 @@
         </div>
       </div>
     </div>
-    <app-start-game-modal v-if="isModalShow" :hide="goBack" :title="modalTitle"/>
+    <app-start-game-modal v-if="isModalShow" v-on:hide="goBack" :title="modalTitle"/>
     <app-save-game-modal
       v-if="isSaveModalShow"
-      :hide="goBack"
+      v-on:hide="isSaveModalShow=false"
       :items="items"
       v-on:saveGame="saveGame"
     />
@@ -92,7 +92,7 @@ export default {
           if (err) {
             console.log(err);
             return;
-          }
+          } 
         }
       );
     },
