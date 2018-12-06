@@ -3,8 +3,11 @@
     <div class="timer-container">
       <p>{{hours}}:{{minutes | toTimerFormat}}:{{seconds | toTimerFormat}}</p>
     </div>
-    <div class="back-button" v-on:click="goBack">
-      <span class="left-arrow">&larr;</span>Hlavní menu
+    <div class="custom-buttons">
+      <div class="custom-button save-button" v-on:click="saveHandler">Uložit hru</div>
+      <div class="custom-button back-button" v-on:click="goBack">
+        <span class="left-arrow">&larr;</span>Hlavní menu
+      </div>
     </div>
     <app-field
       class="playfield"
@@ -21,14 +24,32 @@
         </div>
       </div>
     </div>
-    <app-modal v-if="isModalShow" :hide="goBack" :title="modalTitle"/>
+    <app-start-game-modal v-if="isModalShow" :hide="goBack" :title="modalTitle"/>
+    <app-save-game-modal
+      v-if="isSaveModalShow"
+      :hide="goBack"
+      :items="items"
+      v-on:saveGame="saveGame"
+    />
   </div>
 </template>
 <script>
-import Field from "./Field";
-import AppModal from "../Modal";
+import AppField from "./Field";
+import AppStartGameModal from "../Modal/StartGameModal";
+import AppSaveGameModal from "../Modal/SaveGameModal";
+import { readFile } from "fs";
+
 export default {
-  components: { AppModal },
+  mounted() {
+    readFile("./saved-games.json", "utf8", (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      this.items = JSON.parse(data);
+    });
+  },
+  components: { AppStartGameModal, AppSaveGameModal },
   props: ["playField"],
   created: function() {
     var me = this;
@@ -45,10 +66,18 @@ export default {
     }, 1000);
   },
   components: {
-    "app-field": Field,
-    AppModal
+    AppField,
+    AppStartGameModal,
+    AppSaveGameModal
   },
   methods: {
+    saveGame(name) {
+      this.items 
+      this.isSaveModalShow = false;
+    },
+    saveHandler() {
+      this.isSaveModalShow = true;
+    },
     handleKeyDown(event) {
       if (event.key === "Backspace") {
         this.selectValue(null);
@@ -102,7 +131,9 @@ export default {
       minutes: 0,
       seconds: 0,
       modalTitle: "Gratulujeme k výhře, chcete si zahrát znovu?",
-      isModalShow: false
+      isModalShow: false,
+      isSaveModalShow: false,
+      items: {}
     };
   }
 };
@@ -114,20 +145,30 @@ export default {
     margin: 10px 0;
   }
 }
-.back-button {
+.custom-buttons {
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+}
+
+.custom-button {
   display: inline-block;
   padding: 10px 20px;
+  cursor: pointer;
+  top: 1.5rem;
   font-weight: bold;
   font-size: 1.6rem;
-  cursor: pointer;
   background: #ebebeb;
   border: 1px solid lightgray;
-  position: absolute;
-  right: 2rem;
-  top: 1.5rem;
+  margin-right: 20px;
 }
+
+.custom-buttons {
+  display: flex;
+}
+
 .left-arrow {
-  margin-right: 5px;
+  margin-right: 15px;
 }
 .card-list {
   display: flex;
@@ -137,7 +178,7 @@ export default {
   background: white;
   border: none;
   left: 50%;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%, -50%);
 }
 .field-option {

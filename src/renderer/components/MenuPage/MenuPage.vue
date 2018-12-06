@@ -12,7 +12,7 @@
 <script>
 import MenuButtons from "./MenuButtons";
 import { remote } from "electron";
-import AppModal from "../Modal";
+import AppModal from "../Modal/StartGameModal";
 
 export default {
   components: {

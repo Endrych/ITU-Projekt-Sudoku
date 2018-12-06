@@ -11,16 +11,19 @@
           :key="index"
         >{{item.title}}</div>
       </div>
-
-      <div class="modal-buttons">
-        <div class="modal-button modal-button--confirm" v-on:click="startGame">Start</div>
-        <div class="modal-button modal-button--back" v-on:click="hide">Zpět</div>
-      </div>
+      <app-modal-buttons
+        FirstTitle="Start"
+        SecondTitle="Zpět"
+        v-on:first-click="startGame"
+        v-on:second-click="hide"
+      />
     </div>
   </div>
 </template>
 <script>
+import AppModalButtons from "./ModalButtons";
 export default {
+  components: { AppModalButtons },
   props: ["hide", "newGame", "title"],
   methods: {
     selectClick(index) {
@@ -73,26 +76,6 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.modal-buttons {
-  display: flex;
-}
-.modal-button {
-  border: 1px solid lightgray;
-  padding: 1rem 4rem;
-  user-select: none;
-  cursor: pointer;
-  &:not(:last-child) {
-    margin-right: 1.5rem;
-  }
-  &--confirm {
-    background: #007bff;
-    border-radius: 5px;
-  }
-  &--back {
-    background: red;
-    border-radius: 5px;
-  }
-}
 .modal-select {
   width: 100%;
   padding: 20px 0px;
@@ -103,6 +86,9 @@ export default {
   border-radius: 8px;
   user-select: none;
   cursor: pointer;
+}
+h3 {
+  text-align: center;
 }
 </style>
 
