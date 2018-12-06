@@ -2,6 +2,7 @@
   <div class="modal-full">
     <div class="modal-window">
       <div>
+        <h3>{{title}}</h3>
         <div
           v-on:click="selectClick(index)"
           class="modal-select"
@@ -20,7 +21,7 @@
 </template>
 <script>
 export default {
-  props: ["hide", "newGame", "items"],
+  props: ["hide", "newGame", "title"],
   methods: {
     selectClick(index) {
       this.selected = index;
@@ -28,13 +29,27 @@ export default {
     startGame() {
       this.$router.push({
         name: "game",
-        params: { difficult: this.items[this.selected].value }
+        params: { difficult: this.items[this.selected].value, time: new Date() }
       });
     }
   },
   data() {
     return {
-      selected: 0
+      selected: 0,
+      items: [
+        {
+          title: "Snadná",
+          value: "easy"
+        },
+        {
+          title: "Střední",
+          value: "standard"
+        },
+        {
+          title: "Těžká",
+          value: "hard"
+        }
+      ]
     };
   }
 };

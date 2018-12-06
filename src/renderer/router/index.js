@@ -11,9 +11,9 @@ export default new Router({
             component: require('@/components/MenuPage/MenuPage').default
         },
         {
-            path: '/game/:difficult',
+            path: '/new-game/:difficult/:time',
             name: 'game',
-            component: require('@/components/Game/Game').default
+            component: require('@/components/NewGame/NewGame').default
         },
         {
             path: '*',

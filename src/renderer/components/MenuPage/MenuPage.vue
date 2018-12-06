@@ -5,41 +5,26 @@
       <span>NG</span>
     </h1>
     <app-buttons :buttons="buttons"/>
-    <app-modal v-if="isModalShow" :hide="hideModal" :items="modalChoices"/>
+    <app-modal v-if="isModalShow" :hide="hideModal" title/>
   </div>
 </template>
 
 <script>
 import MenuButtons from "./MenuButtons";
 import { remote } from "electron";
-import Modal from "../Modal";
+import AppModal from "../Modal";
 
 export default {
   components: {
     "app-buttons": MenuButtons,
-    "app-modal": Modal
+    AppModal
   },
-  computed: {},
   data() {
     return {
       isModalShow: false,
       hideModal: () => {
         this.isModalShow = false;
       },
-      modalChoices: [
-        {
-          title: "Snadná",
-          value: "easy"
-        },
-        {
-          title: "Střední",
-          value: "standard"
-        },
-        {
-          title: "Těžká",
-          value: "hard"
-        }
-      ],
       buttons: [
         {
           name: "Nová hra",

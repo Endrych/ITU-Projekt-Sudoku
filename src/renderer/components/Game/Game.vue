@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div>
-      <div class="back-button" v-on:click="goBack">
-        <span class="left-arrow">&larr;</span>Hlavní menu
-      </div>
+    <div class="timer-container">
+      <p>{{hours}}:{{minutes | toTimerFormat}}:{{seconds | toTimerFormat}}</p>
+    </div>
+    <div class="back-button" v-on:click="goBack">
+      <span class="left-arrow">&larr;</span>Hlavní menu
     </div>
     <app-field
       class="playfield"
@@ -11,6 +12,7 @@
       :currPlayField="currPlayField"
       ref="playfield"
       v-on:selected="select"
+      v-on:complete="onComplete"
     />
     <div class="field-options-container">
       <div class="field-options-container--row" v-for="i in 3" :key="i">
@@ -19,19 +21,36 @@
         </div>
       </div>
     </div>
+    <app-modal v-if="isModalShow" :hide="goBack" :title="modalTitle"/>
   </div>
 </template>
 <script>
-import Field from "./Field.vue";
-
+import Field from "./Field";
+import AppModal from "../Modal";
 export default {
-  mounted: function() {
-    this.generateField();
+  components: { AppModal },
+  props: ["playField"],
+  created: function() {
+    var me = this;
+    this.startTime = new Date();
+    this.currPlayField = this.deepCopy(this.playField);
+
+    setInterval(() => {
+      var currentTime = new Date();
+      var diff = new Date(currentTime - me.startTime);
+      this.hours = diff.getHours() - 1;
+      this.minutes = diff.getMinutes();
+      this.seconds = diff.getSeconds();
+    }, 1000);
   },
   components: {
-    "app-field": Field
+    "app-field": Field,
+    AppModal
   },
   methods: {
+    onComplete() {
+      this.isModalShow = true;
+    },
     goBack() {
       this.$router.push("/");
     },
@@ -54,38 +73,37 @@ export default {
       this.selectedCol = select.col;
     },
     selectValue(value) {
-      this.currPlayField[this.selectedPart][this.selectedRow][
-        this.selectedCol
-      ] = value;
-      this.$refs.playfield.update();
-    },
-    generateField() {
-      this.playField = [
-        [[4, 5, null], [2, null, 8], [3, null, null]],
-        [[null, 8, 2], [3, null, null], [null, null, null]],
-        [[7, null, null], [null, null, 6], [null, null, 1]],
-        [[null, null, null], [null, null, null], [8, null, null]],
-        [[null, 3, null], [8, 1, 9], [null, 4, null]],
-        [[null, null, 2], [null, null, null], [null, null, null]],
-        [[5, null, null], [6, null, null], [null, null, 7]],
-        [[null, null, null], [null, null, 4], [1, 5, null]],
-        [[null, null, 3], [9, null, 8], [null, 2, 4]]
-      ];
-      this.currPlayField = this.deepCopy(this.playField);
+      if (this.selectedPart != undefined) {
+        this.currPlayField[this.selectedPart][this.selectedRow][
+          this.selectedCol
+        ] = value;
+        this.$refs.playfield.update();
+      }
     }
   },
   data() {
     return {
-      playField: [],
       currPlayField: [],
       selectedPart: null,
       selectedRow: null,
-      selectedCol: null
+      selectedCol: null,
+      startTime: null,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      modalTitle: "Gratulujeme k výhře, chcete si zahrát znovu?",
+      isModalShow: false
     };
   }
 };
 </script>
 <style lang="scss" scoped>
+.timer-container {
+  font-size: 2.5rem;
+  p {
+    margin: 10px 0;
+  }
+}
 .back-button {
   display: inline-block;
   padding: 10px 20px;
