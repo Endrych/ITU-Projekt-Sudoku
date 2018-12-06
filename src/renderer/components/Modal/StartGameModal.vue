@@ -27,7 +27,6 @@ export default {
   props: ["newGame", "title"],
   methods: {
     hide() {
-      console.log("Call $emit");
       this.$emit("hide");
     },
     selectClick(index) {

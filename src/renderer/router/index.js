@@ -16,6 +16,11 @@ export default new Router({
             component: require('@/components/NewGame/NewGame').default
         },
         {
+            path: '/load-game/:name',
+            name: 'load-game',
+            component: require('@/components/LoadGamePage/LoadGamePage').default
+        },
+        {
             path: '*',
             redirect: '/'
         }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="game">
     <div class="timer-container">
       <p>{{hours}}:{{minutes | toTimerFormat}}:{{seconds | toTimerFormat}}</p>
     </div>
@@ -40,7 +40,17 @@ import AppSaveGameModal from "../Modal/SaveGameModal";
 import { readFile, writeFile } from "fs";
 
 export default {
-  mounted() {
+  components: { AppStartGameModal, AppSaveGameModal },
+  props: ["game"],
+  created: function() {
+    var me = this;
+    this.startTime = new Date();
+    this.playField = this.game.template;
+    this.currPlayField = this.game.playField;
+    this.difficult = this.game.difficult;
+    console.log(JSON.stringify(this.playfield, null, 4));
+    window.addEventListener("keydown", this.handleKeyDown);
+    console.log(this.game);
     readFile("./saved-games.json", "utf8", (err, data) => {
       if (err) {
         console.log(err);
@@ -48,14 +58,6 @@ export default {
       }
       this.items = JSON.parse(data);
     });
-  },
-  components: { AppStartGameModal, AppSaveGameModal },
-  props: ["playField", "difficult"],
-  created: function() {
-    var me = this;
-    this.startTime = new Date();
-    this.currPlayField = this.deepCopy(this.playField);
-    window.addEventListener("keydown", this.handleKeyDown);
 
     setInterval(() => {
       var currentTime = new Date();
@@ -75,7 +77,7 @@ export default {
       this.items;
       this.isSaveModalShow = false;
       this.items[name] = {
-        tempate: this.playField,
+        template: this.playField,
         playField: this.currPlayField,
         difficult: this.difficult,
         time: {
@@ -92,7 +94,7 @@ export default {
           if (err) {
             console.log(err);
             return;
-          } 
+          }
         }
       );
     },
@@ -114,19 +116,7 @@ export default {
     goBack() {
       this.$router.push("/");
     },
-    deepCopy(obj) {
-      if (typeof obj == "object") {
-        if (obj) {
-          var l = obj.length;
-          var r = new Array(l);
-          for (var i = 0; i < l; i++) {
-            r[i] = this.deepCopy(obj[i]);
-          }
-          return r;
-        }
-      }
-      return obj;
-    },
+
     select(select) {
       this.selectedPart = select.part;
       this.selectedRow = select.row;
@@ -154,7 +144,8 @@ export default {
       modalTitle: "Gratulujeme k výhře, chcete si zahrát znovu?",
       isModalShow: false,
       isSaveModalShow: false,
-      items: {}
+      items: {},
+      difficult: null
     };
   }
 };

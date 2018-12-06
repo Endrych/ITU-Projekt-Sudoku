@@ -12,7 +12,7 @@
         <app-saved-games v-on:select="selectClick" :items="items"/>
       </div>
       <div class="modal-buttons">
-        <div class="modal-button modal-button--back" v-on:click="hide">Zpět</div>
+        <div class="modal-button modal-button--back" v-on:click="hide">Zpět do menu</div>
       </div>
     </div>
   </div>
@@ -26,7 +26,10 @@ export default {
 
   methods: {
     selectClick(index) {
-      console.log(index);
+      this.$router.push({
+        name: "load-game",
+        params: { name: index }
+      });
     },
     hide() {
       this.$emit("hide");
