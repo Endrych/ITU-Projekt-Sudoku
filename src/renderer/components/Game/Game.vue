@@ -34,6 +34,7 @@ export default {
     var me = this;
     this.startTime = new Date();
     this.currPlayField = this.deepCopy(this.playField);
+    window.addEventListener("keydown", this.handleKeyDown);
 
     setInterval(() => {
       var currentTime = new Date();
@@ -48,6 +49,15 @@ export default {
     AppModal
   },
   methods: {
+    handleKeyDown(event) {
+      if (event.key === "Backspace") {
+        this.selectValue(null);
+      }
+      var val = parseInt(event.key);
+      if (!isNaN(val)) {
+        this.selectValue(val);
+      }
+    },
     onComplete() {
       this.isModalShow = true;
     },
