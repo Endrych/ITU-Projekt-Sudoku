@@ -1,5 +1,5 @@
 <template>
-  <app-game :playField="playField"></app-game>
+  <app-game :playField="playField" :difficult="$route.params.difficult"></app-game>
 </template>
 <script>
 import Game from "../Game/Game";
@@ -10,7 +10,7 @@ export default {
   },
   methods: {
     generateField(difficult) {
-      // Get from file 
+      // Get from file
 
       return [
         [[4, 5, null], [2, null, 8], [3, null, null]],

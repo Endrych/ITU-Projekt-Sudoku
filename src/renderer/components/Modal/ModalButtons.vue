@@ -27,7 +27,7 @@ export default {
   padding: 1rem 4rem;
   user-select: none;
   cursor: pointer;
-  color:white;
+  color: white;
   &:not(:last-child) {
     margin-right: 1.5rem;
   }

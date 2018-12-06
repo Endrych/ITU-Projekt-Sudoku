@@ -37,7 +37,7 @@
 import AppField from "./Field";
 import AppStartGameModal from "../Modal/StartGameModal";
 import AppSaveGameModal from "../Modal/SaveGameModal";
-import { readFile } from "fs";
+import { readFile, writeFile } from "fs";
 
 export default {
   mounted() {
@@ -50,7 +50,7 @@ export default {
     });
   },
   components: { AppStartGameModal, AppSaveGameModal },
-  props: ["playField"],
+  props: ["playField", "difficult"],
   created: function() {
     var me = this;
     this.startTime = new Date();
@@ -72,8 +72,29 @@ export default {
   },
   methods: {
     saveGame(name) {
-      this.items 
+      this.items;
       this.isSaveModalShow = false;
+      this.items[name] = {
+        tempate: this.playField,
+        playField: this.currPlayField,
+        difficult: this.difficult,
+        time: {
+          hours: this.hours,
+          minutes: this.minutes,
+          seconds: this.seconds
+        }
+      };
+      writeFile(
+        "./saved-games.json",
+        JSON.stringify(this.items),
+        "utf8",
+        err => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+        }
+      );
     },
     saveHandler() {
       this.isSaveModalShow = true;

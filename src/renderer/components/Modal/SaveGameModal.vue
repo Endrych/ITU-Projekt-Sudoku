@@ -2,16 +2,24 @@
   <div class="modal-full">
     <div class="modal-window">
       <div>
-        <h3 :style="[valid === false?{color:'red'}:{}]">{{title}}</h3>
+        <h3>{{title}}</h3>
+      </div>
+      <div
+        class="no-save-games"
+        v-if="Object.keys(items).length === 0"
+      >Nebyli nalezeny žádné uložené hry</div>
+      <div v-else>
         <div
           v-on:click="selectClick(index)"
-          class="modal-select"
-          :style="[index === selected ? {background:'green'}:{}]"
+          class="modal-saved-game"
           v-for="(item,index) in items"
           :key="index"
-        >{{item.title}}</div>
+        >
+          <div>{{index}}</div>
+          <div>{{item.difficult | difficultToCzech}}</div>
+          <div>{{item.time.hours}}:{{item.time.minutes | toTimerFormat}}:{{item.time.seconds | toTimerFormat}}</div>
+        </div>
       </div>
-      <div class="no-save-games" v-if="items.length === 0">Nebyli nalezeny žádné uložené hry</div>
       <div class="new-name-container">
         <input
           class="new-name-input"
@@ -21,6 +29,7 @@
           placeholder="Název hry"
         >
       </div>
+      <p class="error-message">{{error}}</p>
       <app-modal-buttons
         FirstTitle="Start"
         SecondTitle="Zpět"
@@ -34,23 +43,26 @@
 import AppModalButtons from "./ModalButtons";
 export default {
   components: { AppModalButtons },
-  props: ["hide", 'items'],
+  props: ["hide", "items"],
 
   methods: {
     selectClick(index) {
-      this.selected = index;
+      this.$emit("saveGame", index);
     },
     saveGame() {
       var value = null;
-      if (this.selected === null) {
-        if (this.newName !== "") {
+      if (this.newName !== "") {
+        if (!this.items[this.newName]) {
           value = this.newName;
         } else {
-          this.valid = false;
+          this.error =
+            "Již existuje hra se shodným jménem vyberte si jiné jméno nebo klikněte na položku ze seznamu";
         }
       } else {
-        value = this.items[this.selected].name;
+        this.error =
+          "Musí být vyplněný název nebo si zvolte již uloženou hru ze seznamu";
       }
+
       if (value) {
         this.$emit("saveGame", value);
       }
@@ -59,9 +71,10 @@ export default {
   data() {
     return {
       selected: null,
-      title: "Zvolte prosím nový název uložení nebo si vyberte z předchozího",
+      title:
+        "Zvolte prosím nový název nebo si klikem vyberte z předchozích uložení",
       newName: "",
-      valid: true
+      error: ""
     };
   }
 };
@@ -85,16 +98,29 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.modal-select {
+.modal-saved-game {
+  display: flex;
+  align-content: center;
   width: 100%;
-  padding: 20px 0px;
+  padding: 10px 0px;
   text-align: center;
   border: 1px solid lightgray;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   background: lightgray;
-  border-radius: 8px;
+  border-radius: 2px;
   user-select: none;
   cursor: pointer;
+  & > div {
+    flex: 1;
+    display: inline-block;
+  }
+  &:hover {
+    background-color: #28a745;
+    color: white;
+  }
+  &:last-child {
+    margin-bottom: 2rem;
+  }
 }
 .new-name {
   &-container {
@@ -116,6 +142,9 @@ export default {
 }
 h3 {
   text-align: center;
+}
+.error-message {
+  color: red;
 }
 </style>
 
