@@ -178,12 +178,73 @@ export default {
     },
     onComplete() {
       this.isModalShow = true;
+      var statistics = {
+        easy: {
+          completed: 0,
+          best: null
+        },
+        standard: {
+          completed: 0,
+          best: null
+        },
+        hard: {
+          completed: 0,
+          best: null
+        }
+      };
+
+      readFile("./statistics.json", "utf8", (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          statistics = JSON.parse(data);
+        }
+        
+        statistics[this.difficult].completed++;
+        var actualTime = {
+          hours: this.hours,
+          minutes: this.minutes,
+          seconds: this.seconds
+        };
+
+        if (this.checkBetterTime(actualTime, statistics[this.difficult].best)) {
+          statistics[this.difficult].best = actualTime;
+        }
+
+        writeFile(
+          "./statistics.json",
+          JSON.stringify(statistics),
+          "utf8",
+          err => {
+            if (err) {
+              console.log(err);
+              return;
+            }
+          }
+        );
+      });
+
       this.$refs.startGameModal.setGameTimeAndDifficult(
         this.hours,
         this.minutes,
         this.seconds,
         this.difficult
       );
+    },
+    checkBetterTime(actual, best) {
+      if (!best) {
+        return true;
+      }
+      if (best.hours > actual.hours) {
+        return true;
+      }
+      if (best.minutes > actual.minutes) {
+        return true;
+      }
+      if (best.seconds > actual.seconds) {
+        return true;
+      }
+      return false;
     },
     goBack() {
       this.$router.push("/");
