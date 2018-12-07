@@ -36,6 +36,7 @@ export default {
         this.errorField[i][j] = [false, false, false];
       }
     }
+    this.checkErrors();
   },
   methods: {
     select(part, row, col) {
