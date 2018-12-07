@@ -3,6 +3,16 @@
     <div class="modal-window">
       <div>
         <h3>{{title}}</h3>
+        <div class="description" v-if="showTimeAndDifficult">
+          <div>
+            <span class="description-title">Obtížnost:</span>
+            <span>{{difficult | difficultToCzech}}</span>
+          </div>
+          <div>
+            <span class="description-title">Čas:</span>
+            <span>{{hours}}:{{minutes | toTimerFormat}}:{{seconds | toTimerFormat}}</span>
+          </div>
+        </div>
         <div
           v-on:click="selectClick(index)"
           class="modal-select"
@@ -26,6 +36,13 @@ export default {
   components: { AppModalButtons },
   props: ["newGame", "title"],
   methods: {
+    setGameTimeAndDifficult(hours, minutes, seconds, difficult) {
+      this.hours = hours;
+      this.minutes = minutes;
+      this.seconds = seconds;
+      this.difficult = difficult;
+      this.showTimeAndDifficult = true;
+    },
     hide() {
       this.$emit("hide");
     },
@@ -55,7 +72,12 @@ export default {
           title: "Těžká",
           value: "hard"
         }
-      ]
+      ],
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      showTimeAndDifficult: false,
+      difficult: ""
     };
   }
 };
@@ -92,6 +114,15 @@ export default {
 }
 h3 {
   text-align: center;
+  font-size: 1.3rem;
+}
+
+.description {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  &-title {
+    font-weight: bold;
+  }
 }
 </style>
 

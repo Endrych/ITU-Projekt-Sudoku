@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <app-start-game-modal v-if="isModalShow" v-on:hide="goBack" :title="modalTitle"/>
+    <app-start-game-modal ref="startGameModal" v-show="isModalShow" v-on:hide="goBack" :title="modalTitle"/>
     <app-save-game-modal
       v-if="isSaveModalShow"
       v-on:hide="isSaveModalShow=false"
@@ -48,9 +48,10 @@ export default {
     this.playField = this.game.template;
     this.currPlayField = this.game.playField;
     this.difficult = this.game.difficult;
-    console.log(JSON.stringify(this.playfield, null, 4));
+    this.hours = this.game.time.hours;
+    this.minutes = this.game.time.minutes;
+    this.seconds = this.game.time.seconds;
     window.addEventListener("keydown", this.handleKeyDown);
-    console.log(this.game);
     readFile("./saved-games.json", "utf8", (err, data) => {
       if (err) {
         console.log(err);
@@ -60,11 +61,15 @@ export default {
     });
 
     setInterval(() => {
-      var currentTime = new Date();
-      var diff = new Date(currentTime - me.startTime);
-      this.hours = diff.getHours() - 1;
-      this.minutes = diff.getMinutes();
-      this.seconds = diff.getSeconds();
+      if (!me.isSaveModalShow && !me.isModalShow) me.seconds++;
+      if (me.seconds === 60) {
+        me.seconds = 0;
+        me.minutes++;
+        if (me.minutes === 60) {
+          me.minutes = 0;
+          me.hours++;
+        }
+      }
     }, 1000);
   },
   components: {
@@ -112,6 +117,7 @@ export default {
     },
     onComplete() {
       this.isModalShow = true;
+      this.$refs.startGameModal.setGameTimeAndDifficult(this.hours,this.minutes, this.seconds, this.difficult);
     },
     goBack() {
       this.$router.push("/");
