@@ -81,7 +81,7 @@ export default {
     this.minutes = this.game.time.minutes;
     this.seconds = this.game.time.seconds;
     this.history = this.game.history;
-    
+
     window.addEventListener("keydown", this.handleKeyDown);
     readFile("./saved-games.json", "utf8", (err, data) => {
       if (err) {
@@ -132,6 +132,7 @@ export default {
     },
     highlight() {
       this.showSame = !this.showSame;
+      this.$refs.playfield.showSame = this.showSame;
     },
     saveGame(name) {
       this.items;
