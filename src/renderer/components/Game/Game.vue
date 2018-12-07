@@ -5,9 +5,7 @@
     </div>
     <div class="custom-buttons">
       <div class="custom-button save-button" v-on:click="saveHandler">Uložit hru</div>
-      <div class="custom-button back-button" v-on:click="goBack">
-        <span class="left-arrow">&larr;</span>Hlavní menu
-      </div>
+      <div class="custom-button back-button" v-on:click="goBack">Hlavní menu</div>
     </div>
     <app-field
       class="playfield"
@@ -199,7 +197,7 @@ export default {
         } else {
           statistics = JSON.parse(data);
         }
-        
+
         statistics[this.difficult].completed++;
         var actualTime = {
           hours: this.hours,
@@ -341,10 +339,6 @@ export default {
 .custom-buttons {
   display: flex;
   user-select: none;
-}
-
-.left-arrow {
-  margin-right: 15px;
 }
 .card-list {
   display: flex;
