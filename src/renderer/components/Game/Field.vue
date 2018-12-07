@@ -131,6 +131,7 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   border: 5px solid black;
+  user-select: none;
 
   &-part {
     border: 1px solid black;

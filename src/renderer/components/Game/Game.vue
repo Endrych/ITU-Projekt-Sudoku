@@ -22,9 +22,17 @@
         <div v-for="j in 3" :key="j">
           <div v-on:click="selectValue((i-1)*3 + j)" class="field-option">{{((i-1)*3 + j)}}</div>
         </div>
+        <div class="field-option">
+          <div class="btn-icon" :class="[specialKeys[i-1].name]"></div>
+        </div>
       </div>
     </div>
-    <app-start-game-modal ref="startGameModal" v-show="isModalShow" v-on:hide="goBack" :title="modalTitle"/>
+    <app-start-game-modal
+      ref="startGameModal"
+      v-show="isModalShow"
+      v-on:hide="goBack"
+      :title="modalTitle"
+    />
     <app-save-game-modal
       v-if="isSaveModalShow"
       v-on:hide="isSaveModalShow=false"
@@ -42,6 +50,9 @@ import { readFile, writeFile } from "fs";
 export default {
   components: { AppStartGameModal, AppSaveGameModal },
   props: ["game"],
+  beforeDestroy() {
+    window.removeEventListener("keydown", this.handleKeyDown);
+  },
   created: function() {
     var me = this;
     this.startTime = new Date();
@@ -107,6 +118,10 @@ export default {
       this.isSaveModalShow = true;
     },
     handleKeyDown(event) {
+      if (this.isSaveModalShow || this.isModalShow) {
+        return;
+      }
+
       if (event.key === "Backspace") {
         this.selectValue(null);
       }
@@ -117,7 +132,12 @@ export default {
     },
     onComplete() {
       this.isModalShow = true;
-      this.$refs.startGameModal.setGameTimeAndDifficult(this.hours,this.minutes, this.seconds, this.difficult);
+      this.$refs.startGameModal.setGameTimeAndDifficult(
+        this.hours,
+        this.minutes,
+        this.seconds,
+        this.difficult
+      );
     },
     goBack() {
       this.$router.push("/");
@@ -133,7 +153,7 @@ export default {
         this.currPlayField[this.selectedPart][this.selectedRow][
           this.selectedCol
         ] = value;
-        this.$refs.playfield.update();
+        if (this.$refs.playfield) this.$refs.playfield.update();
       }
     }
   },
@@ -151,14 +171,46 @@ export default {
       isModalShow: false,
       isSaveModalShow: false,
       items: {},
-      difficult: null
+      difficult: null,
+      specialKeys: [
+        {
+          name: "icon-clear",
+          action: () => {}
+        },
+        {
+          name: "icon-undo",
+          action: () => {}
+        },
+        {
+          name: "icon-highlight",
+          action: () => {}
+        }
+      ]
     };
   }
 };
 </script>
 <style lang="scss" scoped>
+.btn-icon {
+  width: 100%;
+  height: 100%;
+  background-size: 75% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+.icon-clear {
+  background: url("../../assets/icons8-clear-symbol-filled-50.png");
+}
+.icon-undo {
+  background: url("../../assets/icons8-undo-filled-50.png");
+}
+.icon-highlight {
+  background: url("../../assets/icons8-eye-filled-50.png");
+}
 .timer-container {
   font-size: 2.5rem;
+  user-select: none;
+  cursor: default;
   p {
     margin: 10px 0;
   }
@@ -183,6 +235,7 @@ export default {
 
 .custom-buttons {
   display: flex;
+  user-select: none;
 }
 
 .left-arrow {
@@ -202,12 +255,13 @@ export default {
 .field-option {
   width: 3rem;
   height: 3rem;
-  text-align: center;
-  font-size: 3rem;
   margin: 0.5rem;
   border: 3px solid black;
   background: #ebebeb;
   cursor: pointer;
+  text-align: center;
+  font-size: 3rem;
+  user-select: none;
 
   &:hover {
     background: lightgray;

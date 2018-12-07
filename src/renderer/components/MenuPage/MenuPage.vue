@@ -90,5 +90,7 @@ export default {
   font-size: 12vw;
   text-align: center;
   margin-bottom: 10vh;
+  cursor:default;
+  user-select: none;
 }
 </style>
