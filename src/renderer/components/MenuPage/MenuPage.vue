@@ -8,6 +8,7 @@
     <app-modal v-if="isModalShow" v-on:hide="hideModal" title/>
     <app-load-game-modal v-if="isLoadModalShow" :items="items" v-on:hide="hideModal"/>
     <app-tutorial-modal v-if="isTutorialModalShow" v-on:hide="hideModal" :items="tutorialItems"/>
+    <app-profile-modal v-if="isProfileModalShow" v-on:hide="hideModal" />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import { remote } from "electron";
 import AppModal from "../Modal/StartGameModal";
 import AppLoadGameModal from "../Modal/LoadGameModal";
 import AppTutorialModal from "../Modal/TutorialModal";
+import AppProfileModal from "../Modal/ProfileModal";
 import image from "../../assets/icons8-chevron-left-90.png";
 import { readFile, writeFile } from "fs";
 
@@ -34,13 +36,15 @@ export default {
     "app-buttons": MenuButtons,
     AppModal,
     AppLoadGameModal,
-    AppTutorialModal
+    AppTutorialModal,
+    AppProfileModal
   },
   methods: {
     hideModal() {
       this.isModalShow = false;
       this.isLoadModalShow = false;
       this.isTutorialModalShow = false;
+      this.isProfileModalShow = false;
     }
   },
   data() {
@@ -48,6 +52,7 @@ export default {
       isModalShow: false,
       isLoadModalShow: false,
       isTutorialModalShow: false,
+      isProfileModalShow: false,
       items: [],
       buttons: [
         {
@@ -63,21 +68,15 @@ export default {
           }
         },
         {
-          name: "Úspěchy",
-          action: () => {
-            console.log("Click");
-          }
-        },
-        {
           name: "Návod",
           action: () => {
             this.isTutorialModalShow = true;
           }
         },
         {
-          name: "Statistiky",
+          name: "Profil",
           action: () => {
-            console.log("Click");
+            this.isProfileModalShow = true;
           }
         },
         {

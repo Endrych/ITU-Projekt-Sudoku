@@ -3,14 +3,18 @@
     <!-- <img :src="items[selectedIndex]"> -->
     <div class="tutorial-modal-flex-container">
       <div class="tutorial-modal-main">
-        <div class="arrow arrow-left" v-on:click="goLeft"></div>
-        <div class="arrow arrow-right" v-on:click="goRight"></div>
         <div class="tutorial-modal-main-content">
-          <div class="tutorial-modal-image--container">
-            <!-- <img src="./../../assets/logo.png" alt> -->
+          <div class="arrow-container">
+            <div class="arrow arrow-left" v-on:click="goLeft"></div>
           </div>
-          <div class="tutorial-modal-text">{{items[selectedIndex].text}}</div>
+          <div class="tutorial-modal-image--container">
+            <div class="img"></div>
+          </div>
+          <div class="arrow-container">
+            <div class="arrow arrow-right" v-on:click="goRight"></div>
+          </div>
         </div>
+        <div class="tutorial-modal-text">{{items[selectedIndex].text}}</div>
       </div>
       <div class="tutorial-navigation--container">
         <div class="tutorial-navigation">
@@ -19,6 +23,7 @@
             class="tutorial-navigation-item"
             v-for="index in items.length"
             :key="index"
+            v-on:click="selectedIndex = index-1"
           ></div>
         </div>
       </div>
@@ -54,6 +59,15 @@ export default {
   height: 100%;
   flex-direction: column;
 }
+.img {
+  background-image: url("../../../../../../Desktop/Hearthstone Screenshot 11-15-18 18.28.56.png");
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: black;
+}
 .tutorial-modal {
   width: 75vw;
   height: 65vh;
@@ -61,33 +75,39 @@ export default {
     &--container {
       flex-grow: 1;
       color: black;
+      position: relative;
     }
   }
   &-main {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
-    position: relative;
     &-content {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        display: flex;
-        flex-direction: column;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
     }
   }
   &-text {
     flex-basis: auto;
+    padding: 1.5rem 2.5rem 0;
   }
 }
 .arrow {
-  position: absolute;
+  // position: absolute;
   width: 3rem;
   height: 5rem;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  top: 50%;
-  transform: translateY(-50%);
+  cursor: pointer;
 
+  &-container {
+    flex-basis: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
   &-left {
     background-image: url("../../assets/icons8-chevron-left-90.png");
     left: 1rem;
@@ -110,6 +130,7 @@ export default {
     &:not(:last-child) {
       margin-right: 15px;
     }
+    cursor: pointer;
   }
   &--container {
     flex-basis: auto;
