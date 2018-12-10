@@ -2,6 +2,7 @@
   <div class="modal-full">
     <div class="modal-window">
       <div class="modal-content">
+        <h1>Profil</h1>
         <div class="profile-statistics">
           <div class="profile-statistics-item profile-statistics-item-easy">
             <h3>Snadná</h3>
@@ -160,6 +161,10 @@ export default {
       padding: 0.5rem;
     }
   }
+}
+h1{
+  font-size: 40px;
+  text-align: center;
 }
 </style>
 
