@@ -105,7 +105,7 @@ export default {
 }
 .arrow {
   // position: absolute;
-  width: 3rem;
+  width: 5rem;
   height: 5rem;
   background-position: center;
   background-repeat: no-repeat;

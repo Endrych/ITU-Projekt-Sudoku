@@ -144,9 +144,9 @@ export default {
   }
 
   &-input {
-    width: 3rem;
-    height: 3rem;
-    font-size: 3rem;
+    width: 6vh;
+    height: 6vh;
+    font-size: 5vh;
     text-align: center;
     border: 1px solid black;
     &--active {

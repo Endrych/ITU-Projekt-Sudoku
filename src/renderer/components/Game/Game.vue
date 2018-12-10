@@ -352,14 +352,14 @@ export default {
   transform: translate(-50%, -50%);
 }
 .field-option {
-  width: 3rem;
-  height: 3rem;
+  width: 6vh;
+  height: 6vh;
   margin: 0.5rem;
   border: 3px solid black;
   background: #ebebeb;
   cursor: pointer;
   text-align: center;
-  font-size: 3rem;
+  font-size: 5vh;
   user-select: none;
 
   &:hover {
