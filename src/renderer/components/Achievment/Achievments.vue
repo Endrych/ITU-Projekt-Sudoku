@@ -129,6 +129,11 @@ export default {
   }
   padding: 20px 0;
 }
+
+h3{
+  font-size: 25px;
+  margin-left:10px;
+}
 .achievment {
   margin: 5px;
   float: left;

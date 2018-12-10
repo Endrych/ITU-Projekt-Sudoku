@@ -25,7 +25,7 @@ export default {
 .modal-button {
   border: 1px solid lightgray;
   padding: 1rem 4rem;
-  font-size: 18px;
+  font-size: 25px;
 
   user-select: none;
   cursor: pointer;

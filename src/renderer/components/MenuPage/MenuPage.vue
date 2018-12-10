@@ -5,7 +5,7 @@
       <span>NG</span>
     </h1>
     <app-buttons :buttons="buttons"/>
-    <app-modal v-if="isModalShow" v-on:hide="hideModal" title/>
+    <app-modal title="Výběr obtížnosti" v-if="isModalShow" v-on:hide="hideModal" />
     <app-load-game-modal v-if="isLoadModalShow" :items="items" v-on:hide="hideModal"/>
     <app-tutorial-modal
       v-on:end="tutorialFinishHandler"

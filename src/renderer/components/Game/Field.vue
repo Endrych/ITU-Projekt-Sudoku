@@ -162,6 +162,7 @@ export default {
       text-align: center;
       color: black;
       flex-basis: 0;
+      font-size:2vh;
       & > div {
         width: 100%;
         height: 100%;

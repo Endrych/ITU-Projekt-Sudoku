@@ -37,7 +37,7 @@ export default {
     flex: 1;
     text-align: center;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 }
 .modal-saved-games {
@@ -58,6 +58,7 @@ export default {
   background: lightgray;
   border-radius: 2px;
   user-select: none;
+  font-size:22px;
   cursor: pointer;
   & > div {
     flex: 1;

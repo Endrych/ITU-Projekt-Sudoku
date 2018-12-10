@@ -94,14 +94,14 @@ export default {
 .new-name {
   &-container {
     position: relative;
-    height: 2.5rem;
+    height: 2.8rem;
   }
   &-input {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     width: 50%;
-    font-size: 1.5rem;
+    font-size: 2rem;
     padding: 0;
   }
 }
@@ -111,6 +111,7 @@ export default {
 }
 h3 {
   text-align: center;
+  font-size: 30px;
 }
 .error-message {
   color: red;

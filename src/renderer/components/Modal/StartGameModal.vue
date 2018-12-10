@@ -110,11 +110,12 @@ export default {
   background: lightgray;
   border-radius: 8px;
   user-select: none;
+  font-size: 25px;
   cursor: pointer;
 }
 h3 {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 2rem;
 }
 
 .description {

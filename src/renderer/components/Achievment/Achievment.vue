@@ -46,7 +46,7 @@ export default {
     padding: 8px 15px;
   }
   &-text {
-    font-size: 18px;
+    font-size: 20px;
     padding: 5px 15px;
   }
   .tutorial-achievment {

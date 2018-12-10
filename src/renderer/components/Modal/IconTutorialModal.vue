@@ -96,7 +96,7 @@ export default {
   cursor: pointer;
   color: white;
   display: inline-block;
-  font-size: 18px;
+  font-size: 25px;
 
   &--back {
     background: red;
@@ -106,8 +106,8 @@ export default {
 .tutorial-item {
   display: flex;
   &-icon {
-    width: 3rem;
-    height: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
     background-size: 75% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -136,7 +136,7 @@ export default {
   }
   &-description {
     flex-grow: 1;
-    font-size: 20px;
+    font-size: 22px;
     padding: 1.5rem;
     flex-basis: 0;
   }

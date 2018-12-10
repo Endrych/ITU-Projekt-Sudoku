@@ -112,7 +112,7 @@ export default {
     });
 
     setInterval(() => {
-      if (!me.isSaveModalShow && !me.isModalShow) me.seconds++;
+      if (!me.isSaveModalShow && !me.isModalShow && !me.isTutorialModalShow && !me.isSaveExitModalShow) me.seconds++;
       if (me.seconds === 60) {
         me.seconds = 0;
         me.minutes++;
@@ -391,7 +391,7 @@ export default {
   cursor: pointer;
   top: 1.5rem;
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 2rem;
   background: #ebebeb;
   border: 1px solid lightgray;
   margin-right: 20px;
