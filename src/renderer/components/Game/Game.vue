@@ -64,14 +64,14 @@
       v-on:hide="isSaveModalShow=false"
       :items="items"
       v-on:saveGame="saveGame"
-      title="Zvolte prosím nový název nebo si klikem vyberte z předchozích uložení"
+      title="Zvolte prosím nový název nebo klikem přepište jedno z předchozích uložení"
       btnTitle="Zpět"
     />
     <app-save-game-modal
       v-if="isSaveExitModalShow"
       v-on:hide="goBack"
       :items="items"
-      title="Opravdu chcete odejít ze hry bez uložení? Pokud si přejete uložit hru, tak prosím zvolte nový název nebo si klikem vyberte z předchozích uložení"
+      title="Opravdu chcete odejít ze hry bez uložení? Pokud si přejete uložit hru, tak prosím zvolte nový název nebo klikem přepište jedno z předchozích uložení"
       v-on:saveGame="saveGameAndExit"
       btnTitle="Neukládat"
     />

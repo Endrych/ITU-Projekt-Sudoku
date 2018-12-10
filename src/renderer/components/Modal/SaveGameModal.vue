@@ -55,7 +55,7 @@ export default {
         }
       } else {
         this.error =
-          "Musí být vyplněný název nebo si zvolte již uloženou hru ze seznamu";
+          "Musí být vyplněný název nebo klikem přepište jednu z uložených her";
       }
 
       if (value) {
@@ -89,21 +89,40 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+
 }
+
+ .error-message{
+	 display:flex;
+	 justify-content:center;
+	 align-self:center;
+	 font-size: 18px;
+ }
 
 .new-name {
   &-container {
     position: relative;
     height: 2.5rem;
+	display:flex;
+	justify-content:center;
   }
   &-input {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    // position: absolute;
+    // left: 50%;
+    // transform: translateX(-50%);
     width: 50%;
     font-size: 1.5rem;
     padding: 0;
+	border: 1px solid gray;
+	padding-left: 5px;
+	&:focus{
+		outline: none;
+		border: 1px solid lighten(#007bff, 15%);
+		// box-shadow:1px 1px 1px lighten(#007bff, 30%);
+	}
   }
+
+
 }
 .no-save-games {
   text-align: center;

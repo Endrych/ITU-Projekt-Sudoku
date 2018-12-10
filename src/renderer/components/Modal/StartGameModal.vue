@@ -111,6 +111,12 @@ export default {
   border-radius: 8px;
   user-select: none;
   cursor: pointer;
+  &:hover{
+	  background: darken(lightgray, 10%)
+  }
+  &:active{
+	  background: darken(lightgray, 20%)
+  }
 }
 h3 {
   text-align: center;
