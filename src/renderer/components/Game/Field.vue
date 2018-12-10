@@ -10,14 +10,14 @@
         <div class="field-col" v-for="(col, index2) in row" :key="index2">
           <div v-if="playField[index][index1][index2] === null">
             <div
-              :style="[ showSame && currPlayField[selectedPart][selectedRow][selectedCol] != null && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow'}:{},index === selectedPart && index1 === selectedRow && index2 === selectedCol ? {background:'lightblue'}:{}, errorField[index][index1][index2] ? {color:'red'}:{}]"
+              :style="[ showSame && selectedPart  && currPlayField[selectedPart][selectedRow][selectedCol] != null && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow'}:{},index === selectedPart && index1 === selectedRow && index2 === selectedCol ? {background:'lightblue'}:{}, errorField[index][index1][index2] ? {color:'red'}:{}]"
               class="field-input field-input--active"
               v-on:click="select(index,index1,index2)"
             >{{currPlayField[index][index1][index2]}}</div>
           </div>
           <div v-else>
             <div
-              :style="[ showSame && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow !important'}:{},errorField[index][index1][index2] ? {color:'red'}:{}]"
+              :style="[ showSame && selectedPart  && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow !important'}:{},errorField[index][index1][index2] ? {color:'red'}:{}]"
               class="field-input field-input--default"
             >{{currPlayField[index][index1][index2]}}</div>
           </div>
@@ -43,7 +43,6 @@ export default {
       this.selectedPart = part;
       this.selectedRow = row;
       this.selectedCol = col;
-      console.log(this.selectedPart, this.selectedRow, this.selectedCol, this.playField[part][row][col]);
       this.$emit("selected", {
         part,
         row,

@@ -5,6 +5,7 @@
     </div>
     <div class="custom-buttons">
       <div class="custom-button save-button" v-on:click="saveHandler">Uložit hru</div>
+      <div class="custom-button help-button" v-on:click="helpHandler">Nápověda</div>
       <div class="custom-button back-button" v-on:click="goBack">Hlavní menu</div>
     </div>
     <app-field
@@ -55,16 +56,17 @@
       :items="items"
       v-on:saveGame="saveGame"
     />
+    <app-icon-tutorial-modal v-if="isTutorialModalShow" v-on:hide="isTutorialModalShow = false"/>
   </div>
 </template>
 <script>
 import AppField from "./Field";
 import AppStartGameModal from "../Modal/StartGameModal";
 import AppSaveGameModal from "../Modal/SaveGameModal";
+import AppIconTutorialModal from "../Modal/IconTutorialModal";
 import { readFile, writeFile } from "fs";
 
 export default {
-  components: { AppStartGameModal, AppSaveGameModal },
   props: ["game"],
   beforeDestroy() {
     window.removeEventListener("keydown", this.handleKeyDown);
@@ -104,9 +106,13 @@ export default {
   components: {
     AppField,
     AppStartGameModal,
-    AppSaveGameModal
+    AppSaveGameModal,
+    AppIconTutorialModal
   },
   methods: {
+    helpHandler() {
+      this.isTutorialModalShow = true;
+    },
     undo() {
       if (this.history.length > 0) {
         var part = this.history[this.history.length - 1].part;
@@ -285,6 +291,7 @@ export default {
       modalTitle: "Gratulujeme k výhře, chcete si zahrát znovu?",
       isModalShow: false,
       isSaveModalShow: false,
+      isTutorialModalShow: false,
       items: {},
       difficult: null,
       showSame: false,
