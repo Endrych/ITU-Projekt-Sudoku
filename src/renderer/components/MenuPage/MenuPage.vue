@@ -7,8 +7,12 @@
     <app-buttons :buttons="buttons"/>
     <app-modal v-if="isModalShow" v-on:hide="hideModal" title/>
     <app-load-game-modal v-if="isLoadModalShow" :items="items" v-on:hide="hideModal"/>
-    <app-tutorial-modal v-if="isTutorialModalShow" v-on:hide="hideModal"/>
-    <app-profile-modal v-if="isProfileModalShow" v-on:hide="hideModal" />
+    <app-tutorial-modal
+      v-on:end="tutorialFinishHandler"
+      v-if="isTutorialModalShow"
+      v-on:hide="hideModal"
+    />
+    <app-profile-modal v-if="isProfileModalShow" v-on:hide="hideModal"/>
   </div>
 </template>
 
@@ -31,6 +35,13 @@ export default {
       }
       this.items = JSON.parse(data);
     });
+    readFile("./statistics.json", "utf8", (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      this.statistics = JSON.parse(data);
+    });
   },
   components: {
     "app-buttons": MenuButtons,
@@ -45,6 +56,22 @@ export default {
       this.isLoadModalShow = false;
       this.isTutorialModalShow = false;
       this.isProfileModalShow = false;
+    },
+    tutorialFinishHandler() {
+      if (!this.statistics.tutorial) {
+        this.statistics.tutorial = true;
+        writeFile(
+          "./statistics.json",
+          JSON.stringify(this.statistics),
+          "utf8",
+          err => {
+            if (err) {
+              console.log(err);
+              return;
+            }
+          }
+        );
+      }
     }
   },
   data() {
@@ -54,6 +81,21 @@ export default {
       isTutorialModalShow: false,
       isProfileModalShow: false,
       items: [],
+      statistics: {
+        tutorial: false,
+        easy: {
+          completed: 0,
+          best: null
+        },
+        standard: {
+          completed: 0,
+          best: null
+        },
+        hard: {
+          completed: 0,
+          best: null
+        }
+      },
       buttons: [
         {
           name: "Nová hra",
@@ -85,7 +127,7 @@ export default {
             remote.getCurrentWindow().close();
           }
         }
-      ],
+      ]
     };
   }
 };
