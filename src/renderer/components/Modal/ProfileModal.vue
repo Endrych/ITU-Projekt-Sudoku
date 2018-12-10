@@ -131,6 +131,13 @@ export default {
   &--back {
     background: red;
     border-radius: 5px;
+
+	&:hover{
+		background:darken(red, 10%)
+	}
+	&:active{
+		background:darken(red, 20%)
+	}
   }
 }
 

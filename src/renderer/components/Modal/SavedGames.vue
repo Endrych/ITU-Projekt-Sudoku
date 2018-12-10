@@ -67,6 +67,10 @@ export default {
     background-color: #28a745;
     color: white;
   }
+  &:active{
+    color: white;
+	background:darken(#28a745, 10%);
+	}
 }
 </style>
 

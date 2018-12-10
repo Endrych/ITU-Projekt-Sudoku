@@ -395,6 +395,12 @@ export default {
   background: #ebebeb;
   border: 1px solid lightgray;
   margin-right: 20px;
+  &:hover{
+	  background: darken( #ebebeb, 10%);
+  }
+  	&:active{
+		background:darken(#ebebeb, 20%);
+	}
 }
 
 .custom-buttons {
@@ -426,6 +432,9 @@ export default {
   &:hover {
     background: lightgray;
   }
+  &:active{
+		background:darken(lightgray, 10%);
+	}
 }
 .field-options-flex-container {
   display: flex;

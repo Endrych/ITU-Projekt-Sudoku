@@ -36,10 +36,24 @@ export default {
   &--confirm {
     background: #007bff;
     border-radius: 5px;
+
+	&:hover{
+		background:darken(#007bff, 10%)
+	}
+	&:active{
+		background:darken(#007bff, 20%)
+	}
   }
   &--back {
     background: red;
     border-radius: 5px;
+
+	&:hover{
+		background:darken(red, 10%)
+	}
+	&:active{
+		background:darken(red, 20%)
+	}
   }
 }
 </style>
