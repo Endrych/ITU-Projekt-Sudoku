@@ -25,6 +25,10 @@ export default {
   margin: 5px 0;
   cursor: pointer;
   user-select: none;
+  &:hover {
+    background-color: #28a745;
+    color: white;
+  }
 }
 </style>
 

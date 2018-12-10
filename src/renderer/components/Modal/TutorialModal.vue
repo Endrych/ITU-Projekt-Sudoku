@@ -51,6 +51,7 @@ export default {
 .modal-button {
   border: 1px solid lightgray;
   padding: 1rem 2.5rem;
+  font-size: 18px;
   user-select: none;
   cursor: pointer;
   color: white;
