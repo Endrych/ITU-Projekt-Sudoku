@@ -6,7 +6,7 @@
     <div class="custom-buttons">
       <div class="custom-button save-button" v-on:click="saveHandler">Uložit hru</div>
       <div class="custom-button help-button" v-on:click="helpHandler">Nápověda</div>
-      <div class="custom-button back-button" v-on:click="goBack">Hlavní menu</div>
+      <div class="custom-button back-button" v-on:click="isSaveExitModalShow = true">Hlavní menu</div>
     </div>
     <app-field
       class="playfield"
@@ -64,6 +64,16 @@
       v-on:hide="isSaveModalShow=false"
       :items="items"
       v-on:saveGame="saveGame"
+      title="Zvolte prosím nový název nebo si klikem vyberte z předchozích uložení"
+      btnTitle="Zpět"
+    />
+    <app-save-game-modal
+      v-if="isSaveExitModalShow"
+      v-on:hide="goBack"
+      :items="items"
+      title="Opravdu chcete odejít ze hry bez uložení? Pokud si přejete uložit hru, tak prosím zvolte nový název nebo si klikem vyberte z předchozích uložení"
+      v-on:saveGame="saveGameAndExit"
+      btnTitle="Neukládat"
     />
     <app-icon-tutorial-modal v-if="isTutorialModalShow" v-on:hide="isTutorialModalShow = false"/>
   </div>
@@ -150,6 +160,10 @@ export default {
     },
     note() {
       this.noteShow = !this.noteShow;
+    },
+    saveGameAndExit(name) {
+      this.saveGame(name);
+      this.goBack();
     },
     saveGame(name) {
       this.items;
@@ -331,7 +345,8 @@ export default {
       showSame: false,
       history: [],
       noteShow: false,
-      noteField: []
+      noteField: [],
+      isSaveExitModalShow: false
     };
   }
 };

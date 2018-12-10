@@ -110,6 +110,7 @@ export default {
 }
 .modal-content {
   flex-grow: 1;
+  overflow-y: auto;
 }
 
 .modal-buttons {

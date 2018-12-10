@@ -23,7 +23,7 @@
       <p class="error-message">{{error}}</p>
       <app-modal-buttons
         FirstTitle="Uložit"
-        SecondTitle="Zpět"
+        :SecondTitle="btnTitle"
         v-on:first-click="saveGame"
         v-on:second-click="hide"
       />
@@ -35,7 +35,7 @@ import AppModalButtons from "./ModalButtons";
 import AppSavedGames from "./SavedGames";
 export default {
   components: { AppModalButtons, AppSavedGames },
-  props: ["items"],
+  props: ["items", "btnTitle", "title"],
 
   methods: {
     selectClick(index) {
@@ -66,8 +66,6 @@ export default {
   data() {
     return {
       selected: null,
-      title:
-        "Zvolte prosím nový název nebo si klikem vyberte z předchozích uložení",
       newName: "",
       error: ""
     };
