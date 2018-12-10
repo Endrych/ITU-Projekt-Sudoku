@@ -113,8 +113,8 @@ export default {
     background-repeat: no-repeat !important;
     position: absolute;
     left: 50%;
-    top:50%;
-    transform: translate(-50%,-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     &--clear {
       background: url("../../assets/icons8-clear-symbol-filled-50.png");
     }

@@ -1,7 +1,8 @@
 <template>
   <div class="achievment">
     <div class="achievment-image--container">
-      <div class="achievment-image tutorial-achievment"></div>
+      <div v-if="active" class="achievment-image tutorial-achievment"></div>
+      <div v-else class="achievment-image tutorial-achievment-gray"></div>
     </div>
     <div class="achievment-body">
       <div class="achievment-header">{{achievment.title}}</div>
@@ -11,7 +12,7 @@
 </template>
 <script>
 export default {
-  props: ["achievment"]
+  props: ["achievment", "active"]
 };
 </script>
 <style lang="scss" scoped>
@@ -50,6 +51,9 @@ export default {
   }
   .tutorial-achievment {
     background-image: url("../../assets/achievments/tutorial-achievment.png");
+  }
+  .tutorial-achievment-gray {
+    background-image: url("../../assets/achievments/tutorial-achievment-gray.png");
   }
 }
 </style>
