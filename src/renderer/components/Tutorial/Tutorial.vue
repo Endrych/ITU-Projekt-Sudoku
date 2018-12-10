@@ -8,20 +8,20 @@
             <div class="arrow arrow-left" v-on:click="goLeft"></div>
           </div>
           <div class="tutorial-modal-image--container">
-            <div class="img"></div>
+            <div class="img" :class="imgClass"></div>
           </div>
           <div class="arrow-container">
             <div class="arrow arrow-right" v-on:click="goRight"></div>
           </div>
         </div>
-        <div class="tutorial-modal-text">{{items[selectedIndex].text}}</div>
+        <!-- <div class="tutorial-modal-text">{{items[selectedIndex].text}}</div> -->
       </div>
       <div class="tutorial-navigation--container">
         <div class="tutorial-navigation">
           <div
             :style="index-1 === selectedIndex?{background:'#007bff'}:{}"
             class="tutorial-navigation-item"
-            v-for="index in items.length"
+            v-for="index in 16"
             :key="index"
             v-on:click="selectedIndex = index-1"
           ></div>
@@ -32,7 +32,12 @@
 </template>
 <script>
 export default {
-  props: ["items"],
+  // props: ["items"],
+  computed: {
+    imgClass() {
+      return "img-tutorial-img-" + this.selectedIndex;
+    }
+  },
   data() {
     return {
       selectedIndex: 0
@@ -45,7 +50,7 @@ export default {
       }
     },
     goRight() {
-      if (this.selectedIndex < this.items.length - 1) {
+      if (this.selectedIndex < 15) {
         this.selectedIndex++;
       }
     }
@@ -59,14 +64,19 @@ export default {
   height: 100%;
   flex-direction: column;
 }
+
+@for $i from 0 to 16 {
+  .img-tutorial-img-#{$i} {
+    background-image: url("../../assets/tutorial/snimek#{$i+1}.png");
+  }
+}
+
 .img {
-  background-image: url("../../../../../../Desktop/Hearthstone Screenshot 11-15-18 18.28.56.png");
   width: 100%;
   height: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: black;
 }
 .tutorial-modal {
   width: 75vw;
