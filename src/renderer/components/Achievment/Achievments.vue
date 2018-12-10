@@ -9,7 +9,7 @@
     <div style="clear:both;"></div>
     <div class="achievment-chapter">
       <h3>Nedokončené</h3>
-      <div class="achievment" v-for="(achievment,index) in unfinished" :key="index">
+      <div class="achievment achievment-not-finished" v-for="(achievment,index) in unfinished" :key="index">
         <app-achievment :achievment="achievment"/>
       </div>
     </div>
@@ -43,19 +43,19 @@ export default {
         statistics.easy.completed +
         statistics.standard.completed +
         statistics.hard.completed;
-      this.addAchievments(["", "", "", "", ""], "Celkově dokončeno", completed);
+      this.addAchievments(["Řeším občas", "Řeším často", "Rěším denně", "Řeším kde se dá", "Řesím dnem i nocí"], "Celkově dokončeno", completed);
       this.addAchievments(
-        ["", "", "", "", ""],
+        ["První krůčky", "Už ti to jde", "Nepolevuj", "Zvládáš to levou zadní", "Vzhůru na střední"],
         "Dokončeno na snadnou obtížnost",
         statistics.easy.completed
       );
       this.addAchievments(
-        ["", "", "", "", ""],
+        ["Střední výzva", "Pokrok středem", "Už si to dáváš", "Půlka za mnou", "Vzhůru na těžkou"],
         "Dokončeno na střední obtížnost",
         statistics.standard.completed
       );
       this.addAchievments(
-        ["", "", "", "", ""],
+        ["Těžké začátky", "Pomalu ale jistě", "Tohle má být těžké?", "Zvládáš to jak nic", "Ostřílený řešitel"],
         "Dokončeno na těžkou obtížnost",
         statistics.hard.completed
       );
@@ -100,5 +100,10 @@ export default {
 .achievment {
   margin: 5px;
   float: left;
+
+  & > .achievment{
+	  color: gray;
+	  border-color:gray;
+  }
 }
 </style>
