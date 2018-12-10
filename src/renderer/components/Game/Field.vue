@@ -10,7 +10,7 @@
         <div class="field-col" v-for="(col, index2) in row" :key="index2">
           <div v-if="playField[index][index1][index2] === null">
             <div
-              :style="[ showSame && selectedPart  && currPlayField[selectedPart][selectedRow][selectedCol] != null && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow'}:{},index === selectedPart && index1 === selectedRow && index2 === selectedCol ? {background:'lightblue'}:{}, errorField[index][index1][index2] ? {color:'red'}:{}]"
+              :style="[ showSame && selectedPart !== null  && currPlayField[selectedPart][selectedRow][selectedCol] != null && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow'}:{},index === selectedPart && index1 === selectedRow && index2 === selectedCol ? {background:'lightblue'}:{}, errorField[index][index1][index2] ? {color:'red'}:{}]"
               class="field-input field-input--active"
               v-on:click="select(index,index1,index2)"
             >
@@ -32,7 +32,7 @@
           </div>
           <div v-else>
             <div
-              :style="[ showSame && selectedPart  && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow !important'}:{},errorField[index][index1][index2] ? {color:'red'}:{}]"
+              :style="[ showSame && selectedPart !== null  && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow !important'}:{},errorField[index][index1][index2] ? {color:'red'}:{}]"
               class="field-input field-input--default"
             >{{currPlayField[index][index1][index2]}}</div>
           </div>
@@ -180,6 +180,7 @@ export default {
     &-row {
       display: flex;
       flex-grow: 1;
+      flex-basis: 0;
     }
   }
   &-input {
