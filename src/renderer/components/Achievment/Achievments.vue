@@ -13,6 +13,7 @@
         <app-achievment :achievment="achievment"/>
       </div>
     </div>
+    <div style="clear:both;"></div>
   </div>
 </template>
 <script>
