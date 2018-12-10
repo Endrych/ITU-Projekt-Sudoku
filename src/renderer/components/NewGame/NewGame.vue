@@ -31,10 +31,21 @@ export default {
 
       var template = this.deepCopy(field);
       var playField = this.deepCopy(field);
+      var noteField = [];
+      for (var i = 0; i < 9; i++) {
+        noteField[i] = [];
+        for (var j = 0; j < 3; j++) {
+          noteField[i][j] = [];
+          for (var k = 0; k < 3; k++) {
+            noteField[i][j][k] = [];
+          }
+        }
+      }
       return {
         template,
         playField,
         difficult,
+        noteField,
         time: {
           hours: 0,
           minutes: 0,

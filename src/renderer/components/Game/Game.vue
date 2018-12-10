@@ -12,6 +12,7 @@
       class="playfield"
       :playField="playField"
       :currPlayField="currPlayField"
+      :noteField="noteField"
       ref="playfield"
       v-on:selected="select"
       v-on:complete="onComplete"
@@ -40,6 +41,14 @@
             :style="[showSame === true?{background:'yellow !important'}:{background:'#ebebeb !important'}]"
           >
             <div class="btn-icon icon-highlight" v-on:click="highlight"></div>
+          </div>
+        </div>
+        <div class="field-options-container--col">
+          <div
+            class="field-option"
+            :style="[noteShow === true?{background:'yellow !important'}:{background:'#ebebeb !important'}]"
+          >
+            <div class="btn-icon icon-note" v-on:click="note"></div>
           </div>
         </div>
       </div>
@@ -81,6 +90,7 @@ export default {
     this.minutes = this.game.time.minutes;
     this.seconds = this.game.time.seconds;
     this.history = this.game.history;
+    this.noteField = this.game.noteField;
 
     window.addEventListener("keydown", this.handleKeyDown);
     readFile("./saved-games.json", "utf8", (err, data) => {
@@ -138,12 +148,16 @@ export default {
       this.showSame = !this.showSame;
       this.$refs.playfield.showSame = this.showSame;
     },
+    note() {
+      this.noteShow = !this.noteShow;
+    },
     saveGame(name) {
       this.items;
       this.isSaveModalShow = false;
       this.items[name] = {
         template: this.playField,
         playField: this.currPlayField,
+        noteField: this.noteField,
         difficult: this.difficult,
         time: {
           hours: this.hours,
@@ -183,6 +197,7 @@ export default {
     onComplete() {
       this.isModalShow = true;
       var statistics = {
+        tutorial: false,
         easy: {
           completed: 0,
           best: null
@@ -261,20 +276,39 @@ export default {
     },
     selectValue(value) {
       if (this.selectedPart != undefined) {
-        this.history.push({
-          part: this.selectedPart,
-          row: this.selectedRow,
-          col: this.selectedCol,
-          oldValue: this.currPlayField[this.selectedPart][this.selectedRow][
+        if (!this.noteShow) {
+          this.history.push({
+            part: this.selectedPart,
+            row: this.selectedRow,
+            col: this.selectedCol,
+            oldValue: this.currPlayField[this.selectedPart][this.selectedRow][
+              this.selectedCol
+            ],
+            newValue: value
+          });
+          this.currPlayField[this.selectedPart][this.selectedRow][
             this.selectedCol
-          ],
-          newValue: value
-        });
-        this.currPlayField[this.selectedPart][this.selectedRow][
-          this.selectedCol
-        ] = value;
+          ] = value;
 
-        if (this.$refs.playfield) this.$refs.playfield.update();
+          if (this.$refs.playfield) this.$refs.playfield.update();
+        } else {
+          if (
+            this.noteField[this.selectedPart][this.selectedRow][
+              this.selectedCol
+            ].includes(value)
+          ) {
+            var index = this.noteField[this.selectedPart][this.selectedRow][
+              this.selectedCol
+            ].indexOf(value);
+            this.noteField[this.selectedPart][this.selectedRow][
+              this.selectedCol
+            ].splice(index, 1);
+          } else {
+            this.noteField[this.selectedPart][this.selectedRow][
+              this.selectedCol
+            ].push(value);
+          }
+        }
       }
     }
   },
@@ -295,7 +329,9 @@ export default {
       items: {},
       difficult: null,
       showSame: false,
-      history: []
+      history: [],
+      noteShow: false,
+      noteField: []
     };
   }
 };
@@ -316,6 +352,9 @@ export default {
 }
 .icon-highlight {
   background: url("../../assets/icons8-eye-filled-50.png");
+}
+.icon-note {
+  background: url("../../assets/icons8-compose-100.png");
 }
 .timer-container {
   font-size: 2.5rem;

@@ -13,7 +13,22 @@
               :style="[ showSame && selectedPart  && currPlayField[selectedPart][selectedRow][selectedCol] != null && currPlayField[index][index1][index2] === currPlayField[selectedPart][selectedRow][selectedCol]?{background: 'yellow'}:{},index === selectedPart && index1 === selectedRow && index2 === selectedCol ? {background:'lightblue'}:{}, errorField[index][index1][index2] ? {color:'red'}:{}]"
               class="field-input field-input--active"
               v-on:click="select(index,index1,index2)"
-            >{{currPlayField[index][index1][index2]}}</div>
+            >
+              <div
+                class="field-note-container"
+                v-if="currPlayField[index][index1][index2] === null"
+              >
+                <div class="field-note-row" v-for="i in 3" :key="i">
+                  <div class="field-note-item" v-for="j in 3" :key="j">
+                    <div
+                      v-if="noteField[index][index1][index2].includes(((i-1)*3 + j) )"
+                    >{{(i-1)*3 + j}}</div>
+                    <div v-else>&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+              <div v-else>{{currPlayField[index][index1][index2]}}</div>
+            </div>
           </div>
           <div v-else>
             <div
@@ -28,7 +43,7 @@
 </template>
 <script>
 export default {
-  props: ["playField", "currPlayField"],
+  props: ["playField", "currPlayField", "noteField"],
   created() {
     for (var i = 0; i < 9; i++) {
       this.errorField[i] = [];
@@ -141,7 +156,32 @@ export default {
   &-row {
     display: flex;
   }
+  &-note {
+    &-item {
+      flex-grow: 1;
+      text-align: center;
+      color: black;
+      flex-basis: 0;
+      &>div{
+        width:100%;
+        height: 100%;
+        text-align: center;
+      }
+    }
 
+    &-container {
+      font-size: 1.5rem;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    &-row {
+      display: flex;
+      flex-grow: 1;
+    }
+  }
   &-input {
     width: 6vh;
     height: 6vh;
