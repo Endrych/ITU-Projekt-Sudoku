@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-        <app-achievments ref="achievments" />
+        <app-achievments ref="achievments"/>
       </div>
       <div class="modal-buttons">
         <div class="modal-button modal-button--back" v-on:click="hide">Zpět</div>
@@ -65,7 +65,7 @@ export default {
         return;
       }
       this.statistics = JSON.parse(data);
-      this.$refs.achievments.setStatistics(this.statistics)
+      this.$refs.achievments.setStatistics(this.statistics);
     });
   },
   components: {

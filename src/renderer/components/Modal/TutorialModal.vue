@@ -1,7 +1,7 @@
 <template>
   <div class="modal-full">
     <div class="modal-window">
-      <app-tutorial :items="items"/>
+      <app-tutorial v-on:end="$emit('end')" :items="items"/>
       <div class="modal-buttons">
         <div class="modal-button modal-button--back" v-on:click="hide">Zpět</div>
       </div>

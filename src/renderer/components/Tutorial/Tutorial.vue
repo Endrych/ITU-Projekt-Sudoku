@@ -21,7 +21,7 @@
             class="tutorial-navigation-item"
             v-for="index in 16"
             :key="index"
-            v-on:click="selectedIndex = index-1"
+            v-on:click="changePage(index-1)"
           ></div>
         </div>
       </div>
@@ -41,6 +41,12 @@ export default {
     };
   },
   methods: {
+    changePage(index) {
+      this.selectedIndex = index;
+      if (this.selectedIndex === 15) {
+        this.$emit("end");
+      }
+    },
     goLeft() {
       if (this.selectedIndex > 0) {
         this.selectedIndex--;
@@ -49,6 +55,9 @@ export default {
     goRight() {
       if (this.selectedIndex < 15) {
         this.selectedIndex++;
+      }
+      if (this.selectedIndex === 15) {
+        this.$emit("end");
       }
     }
   }
