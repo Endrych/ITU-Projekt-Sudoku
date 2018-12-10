@@ -91,6 +91,8 @@ h3 {
   border: 1px solid lightgray;
   padding: 1rem 2.5rem;
   user-select: none;
+  font-size: 18px;
+
   cursor: pointer;
   color: white;
   display: inline-block;

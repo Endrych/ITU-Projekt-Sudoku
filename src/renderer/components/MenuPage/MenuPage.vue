@@ -7,7 +7,7 @@
     <app-buttons :buttons="buttons"/>
     <app-modal v-if="isModalShow" v-on:hide="hideModal" title/>
     <app-load-game-modal v-if="isLoadModalShow" :items="items" v-on:hide="hideModal"/>
-    <app-tutorial-modal v-if="isTutorialModalShow" v-on:hide="hideModal" :items="tutorialItems"/>
+    <app-tutorial-modal v-if="isTutorialModalShow" v-on:hide="hideModal"/>
     <app-profile-modal v-if="isProfileModalShow" v-on:hide="hideModal" />
   </div>
 </template>
@@ -86,33 +86,6 @@ export default {
           }
         }
       ],
-      tutorialItems: [
-        {
-          image,
-          text:
-            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam egestas wisi a erat. Et harum quidem rerum facilis est et expedita distinctio. Mauris tincidunt sem sed arcu. Etiam posuere lacus quis dolor. Etiam quis quam. Aliquam erat volutpat. Nulla est. Proin mattis lacinia justo. Praesent in mauris eu tortor porttitor accumsan. "
-        },
-        {
-          image,
-          text:
-            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam egestas wisi a erat. Et harum quidem rerum facilis est et expedita distinctio. Mauris tincidunt sem sed arcu. Etiam posuere lacus quis dolor. Etiam quis quam. Aliquam erat volutpat. Nulla est. Proin mattis lacinia justo. Praesent in mauris eu tortor porttitor accumsan. "
-        },
-        {
-          image,
-          text:
-            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam egestas wisi a erat. Et harum quidem rerum facilis est et expedita distinctio. Mauris tincidunt sem sed arcu. Etiam posuere lacus quis dolor. Etiam quis quam. Aliquam erat volutpat. Nulla est. Proin mattis lacinia justo. Praesent in mauris eu tortor porttitor accumsan. "
-        },
-        {
-          image,
-          text:
-            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam egestas wisi a erat. Et harum quidem rerum facilis est et expedita distinctio. Mauris tincidunt sem sed arcu. Etiam posuere lacus quis dolor. Etiam quis quam. Aliquam erat volutpat. Nulla est. Proin mattis lacinia justo. Praesent in mauris eu tortor porttitor accumsan. "
-        },
-        {
-          image,
-          text:
-            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam egestas wisi a erat. Et harum quidem rerum facilis est et expedita distinctio. Mauris tincidunt sem sed arcu. Etiam posuere lacus quis dolor. Etiam quis quam. Aliquam erat volutpat. Nulla est. Proin mattis lacinia justo. Praesent in mauris eu tortor porttitor accumsan. "
-        }
-      ]
     };
   }
 };

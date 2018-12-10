@@ -88,6 +88,7 @@ export default {
   cursor: pointer;
   color: white;
   display: inline-block;
+  font-size: 18px;
 
   &--back {
     background: red;
@@ -97,11 +98,15 @@ export default {
 .tutorial-item {
   display: flex;
   &-icon {
-    width: 100%;
-    height: 100%;
+    width: 3rem;
+    height: 3rem;
     background-size: 75% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
     &--clear {
       background: url("../../assets/icons8-clear-symbol-filled-50.png");
     }
@@ -115,6 +120,7 @@ export default {
       width: 5rem;
       height: 5rem;
       flex-basis: auto;
+      position: relative;
     }
   }
   &-description {

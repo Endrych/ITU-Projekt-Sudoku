@@ -46,6 +46,7 @@
             </div>
           </div>
         </div>
+        <app-achievments ref="achievments" />
       </div>
       <div class="modal-buttons">
         <div class="modal-button modal-button--back" v-on:click="hide">Zpět</div>
@@ -55,7 +56,7 @@
 </template>
 <script>
 import { readFile, writeFile } from "fs";
-
+import AppAchievments from "../Achievment/Achievments";
 export default {
   created() {
     readFile("./statistics.json", "utf8", (err, data) => {
@@ -64,7 +65,11 @@ export default {
         return;
       }
       this.statistics = JSON.parse(data);
+      this.$refs.achievments.setStatistics(this.statistics)
     });
+  },
+  components: {
+    AppAchievments
   },
   methods: {
     hide() {
@@ -116,6 +121,7 @@ export default {
 .modal-button {
   border: 1px solid lightgray;
   padding: 1rem 2.5rem;
+  font-size: 18px;
   user-select: none;
   cursor: pointer;
   color: white;
@@ -139,11 +145,11 @@ export default {
       border-bottom: 1px solid black;
       background: #2f2f2f;
       color: white;
-      margin:0;
+      margin: 0;
       padding: 0.5rem;
     }
-    &>div{
-        padding: 0.5rem;
+    & > div {
+      padding: 0.5rem;
     }
   }
 }

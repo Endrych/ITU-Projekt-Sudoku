@@ -1,6 +1,5 @@
 <template>
   <div class="tutorial-modal">
-    <!-- <img :src="items[selectedIndex]"> -->
     <div class="tutorial-modal-flex-container">
       <div class="tutorial-modal-main">
         <div class="tutorial-modal-main-content">
@@ -14,7 +13,6 @@
             <div class="arrow arrow-right" v-on:click="goRight"></div>
           </div>
         </div>
-        <!-- <div class="tutorial-modal-text">{{items[selectedIndex].text}}</div> -->
       </div>
       <div class="tutorial-navigation--container">
         <div class="tutorial-navigation">
@@ -32,7 +30,6 @@
 </template>
 <script>
 export default {
-  // props: ["items"],
   computed: {
     imgClass() {
       return "img-tutorial-img-" + this.selectedIndex;

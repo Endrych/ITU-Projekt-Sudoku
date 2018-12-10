@@ -22,7 +22,7 @@
       </div>
       <p class="error-message">{{error}}</p>
       <app-modal-buttons
-        FirstTitle="Start"
+        FirstTitle="Uložit"
         SecondTitle="Zpět"
         v-on:first-click="saveGame"
         v-on:second-click="hide"

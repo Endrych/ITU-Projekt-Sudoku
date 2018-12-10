@@ -16,7 +16,7 @@
         <div
           v-on:click="selectClick(index)"
           class="modal-select"
-          :style="[index === selected ? {background:'green'}:{}]"
+          :style="[index === selected ? {background:'green',color:'white'}:{}]"
           v-for="(item,index) in items"
           :key="index"
         >{{item.title}}</div>
