@@ -25,6 +25,14 @@
           class="tutorial-item-description"
         >Zobrazí všechny buňky hracího pole, které mají stejnou hodnotu, jako buňka, která je aktuálně vybraná. Tenhle mód je aktivní pokud je podbarven žlutou barvou.</div>
       </div>
+      <div class="tutorial-item">
+        <div class="tutorial-item-icon--container">
+          <div class="tutorial-item-icon tutorial-item-icon--note"></div>
+        </div>
+        <div
+          class="tutorial-item-description"
+        >Mód poznámek, pokud je aktivní, tak místo zadávání hodnoty do buňky k dojde k uložení poznámce o možné hodnotě v buňce, pokud daná hodnota je již poznamenána, dojde k její smazání s poznámek. Tenhle mód je aktivní pokud je podbarven žlutou barvou.</div>
+      </div>
       <div class="modal-buttons">
         <div class="modal-button modal-button--back" v-on:click="hide">Zpět</div>
       </div>
@@ -116,6 +124,9 @@ export default {
     &--highlight {
       background: url("../../assets/icons8-eye-filled-50.png");
     }
+    &--note {
+      background: url("../../assets/icons8-compose-100.png");
+    }
     &--container {
       width: 5rem;
       height: 5rem;
@@ -127,6 +138,7 @@ export default {
     flex-grow: 1;
     font-size: 20px;
     padding: 1.5rem;
+    flex-basis: 0;
   }
 }
 
