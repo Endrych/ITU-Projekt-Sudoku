@@ -18,7 +18,7 @@ export default {
   background: #ebebeb;
   display: inline-block;
   width: 35%;
-  font-size: calc(15px + 0.6vw);
+  font-size: calc(18px + 0.6vw);
   padding: 20px 10px;
   border: 1px solid gray;
   text-align: center;

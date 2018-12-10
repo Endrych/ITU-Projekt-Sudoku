@@ -81,6 +81,7 @@ export default {
 }
 h3 {
   text-align: center;
+  font-size: 30px;
 }
 .modal-buttons {
   display: flex;
@@ -91,7 +92,7 @@ h3 {
   border: 1px solid lightgray;
   padding: 1rem 2.5rem;
   user-select: none;
-  font-size: 18px;
+  font-size: 25px;
 
   cursor: pointer;
   color: white;

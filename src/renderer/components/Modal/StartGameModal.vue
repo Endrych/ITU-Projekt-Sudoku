@@ -100,16 +100,21 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+h3{
+	margin: 0;
+	margin-bottom: 1rem;
+}
 
 .modal-select {
   width: 100%;
   padding: 20px 0px;
   text-align: center;
   border: 1px solid lightgray;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   background: lightgray;
   border-radius: 8px;
   user-select: none;
+  font-size: 25px;
   cursor: pointer;
   &:hover{
 	  background: darken(lightgray, 10%)
@@ -120,7 +125,7 @@ export default {
 }
 h3 {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 2rem;
 }
 
 .description {

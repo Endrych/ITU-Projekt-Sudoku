@@ -137,8 +137,8 @@ export default {
 .tutorial-navigation {
   display: inline-flex;
   &-item {
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border: 1px solid darken(lightblue, 30%);
     border-radius: 50%;
     position: relative;

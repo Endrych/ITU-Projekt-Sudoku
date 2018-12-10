@@ -110,7 +110,7 @@ export default {
   height: 80%;
 }
 .modal-content {
-  flex-grow: 1;
+  height: calc(100% - 40px);
   overflow-y: auto;
 }
 
@@ -123,7 +123,7 @@ export default {
 .modal-button {
   border: 1px solid lightgray;
   padding: 1rem 2.5rem;
-  font-size: 18px;
+  font-size: 25px;
   user-select: none;
   cursor: pointer;
   color: white;
@@ -156,13 +156,15 @@ export default {
       color: white;
       margin: 0;
       padding: 0.5rem;
+      font-size: 26px;
     }
     & > div {
-      padding: 0.5rem;
+      padding: 1rem;
+      font-size: 20px;
     }
   }
 }
-h1{
+h1 {
   font-size: 40px;
   text-align: center;
 }
