@@ -1,4 +1,4 @@
-# sudoku
+# Sudoku
 
 > An electron-vue project
 
